@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtWebEngineWidgets import *
+from PyQt5.QtGui import *
 #importing QtCore to use Qurl
 from PyQt5.QtCore import *
 
@@ -9,6 +10,14 @@ defaultBrowser = "http://google.com"
 class Window(QMainWindow):
     def __init__(self):
         super(Window,self).__init__()
+
+        icons = [
+          'SP_ArrowBack',
+          'SP_ArrowForward',
+          'SP_BrowserReload',
+          'SP_TitleBarUnshadeButton'
+        ]
+
         #---------------------adding browser-------------------
         self.browser = QWebEngineView()
         #Place to set default web browser URL
@@ -23,19 +32,23 @@ class Window(QMainWindow):
         self.addToolBar(navbar)
 
         #-----------------prev Button-----------------
-        prevBtn = QAction('Prev',self)
+        # prevBtn = QAction('Prev',self)
+        prevBtn = QAction("", self)
+        prevBtn.setIcon(self.style().standardIcon(getattr(QStyle, icons[0])))
         #when triggered set connection
         prevBtn.triggered.connect(self.browser.back)
         navbar.addAction(prevBtn)
 
         #-----------------next Button---------------
-        nextBtn = QAction('Next',self)
+        nextBtn = QAction("", self)
+        nextBtn.setIcon(self.style().standardIcon(getattr(QStyle, icons[1])))
         #when triggered set connection
         nextBtn.triggered.connect(self.browser.forward)
         navbar.addAction(nextBtn)
 
         #-----------refresh Button--------------------
-        refreshBtn = QAction('Refresh',self)
+        refreshBtn = QAction("", self)
+        refreshBtn.setIcon(self.style().standardIcon(getattr(QStyle, icons[2])))
         #when triggered set connection
         refreshBtn.triggered.connect(self.browser.reload)
         navbar.addAction(refreshBtn)
@@ -54,6 +67,17 @@ class Window(QMainWindow):
 
         #if url in the searchBar is changed then call updateUrl method
         self.browser.urlChanged.connect(self.updateUrl)
+
+        #---------------------Options Menu-------------------------------
+        # self.optionsMenu = QComboBox()
+        # self.optionsMenu.setItemIcon(self.style().standardIcon(getattr(QStyle, icons[3])))
+
+        # navbar.addWidget(self.optionsMenu)
+        #---------------------Options/Functionality----------------------
+        # self.optionsMenu.add("E")
+        # self.optionsMenu.add("E")
+        # self.optionsMenu.add("E")
+        # self.optionsMenu.add("E")
 
     #method to navigate back to home page
     def home(self):
