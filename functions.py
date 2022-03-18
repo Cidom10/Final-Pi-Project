@@ -5,3 +5,8 @@
 * (fullscreen, bookmarks, etc.)
 """
 
+def openBookmarks():
+  print("Bookmarks babyy")
+
+def changeTheme(type):
+  print("dark mode time")
